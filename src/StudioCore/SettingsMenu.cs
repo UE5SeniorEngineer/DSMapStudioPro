@@ -295,6 +295,35 @@ public class SettingsMenu
 
                 ImGui.Checkbox("Enable selection outline", ref CFG.Current.Viewport_Enable_Selection_Outline);
                 ImguiUtils.ShowHoverTooltip("Enable the selection outline around map entities.");
+                
+                ImGui.Checkbox("Show object info in viewport", ref CFG.Current.Viewport_ShowObjectInfo);
+                ImguiUtils.ShowHoverTooltip("Display information panels for lights, chests, and dropped items when they appear in the viewport.");
+                
+                if (CFG.Current.Viewport_ShowObjectInfo)
+                {
+                    ImGui.Indent();
+                    ImGui.Checkbox("Show lights", ref CFG.Current.Viewport_ShowObjectInfo_Lights);
+                    ImguiUtils.ShowHoverTooltip("Show information for light sources (torches, lamps, candles, etc.)");
+                    
+                    ImGui.Checkbox("Show chests", ref CFG.Current.Viewport_ShowObjectInfo_Chests);
+                    ImguiUtils.ShowHoverTooltip("Show information for treasure chests and containers");
+                    
+                    ImGui.Checkbox("Show drops", ref CFG.Current.Viewport_ShowObjectInfo_Drops);
+                    ImguiUtils.ShowHoverTooltip("Show information for dropped items and pickups");
+                    
+                    ImGui.Checkbox("Show NPCs/Enemies", ref CFG.Current.Viewport_ShowObjectInfo_NPCs);
+                    ImguiUtils.ShowHoverTooltip("Show information for NPCs and enemies (may be performance intensive)");
+                    
+                    ImGui.Checkbox("Show special objects", ref CFG.Current.Viewport_ShowObjectInfo_Special);
+                    ImguiUtils.ShowHoverTooltip("Show information for interactive objects like doors, levers, etc.");
+                    
+                    ImGui.SliderFloat("Max distance", ref CFG.Current.Viewport_ObjectInfo_MaxDistance, 5.0f, 200.0f);
+                    ImguiUtils.ShowHoverTooltip("Maximum distance from camera to show object information");
+                    
+                    ImGui.SliderFloat("Panel opacity", ref CFG.Current.Viewport_ObjectInfo_PanelOpacity, 0.1f, 1.0f);
+                    ImguiUtils.ShowHoverTooltip("Transparency of the information panels");
+                    ImGui.Unindent();
+                }
 
                 if (CFG.Current.ShowUITooltips)
                 {
