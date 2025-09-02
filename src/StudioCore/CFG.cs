@@ -67,6 +67,14 @@ public class CFG
 
     // Settings: Map Editor
     public bool Viewport_Enable_Selection_Outline = false;
+    
+    // Viewport Object Information Overlay
+    public bool Viewport_ShowObjectInfo = true;
+    public bool Viewport_ShowObjectInfo_Lights = true;
+    public bool Viewport_ShowObjectInfo_Chests = true;
+    public bool Viewport_ShowObjectInfo_Drops = true;
+    public float Viewport_ObjectInfo_MaxDistance = 50.0f;
+    public float Viewport_ObjectInfo_PanelOpacity = 0.8f;
 
     public bool MapEditor_MapObjectList_ShowMapNames = true;
     public bool MapEditor_MapObjectList_ShowCharacterNames = true;

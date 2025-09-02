@@ -97,6 +97,9 @@ public class MsbEditorScreen : EditorScreen, SceneTreeEventHandler
         PropSearch = new SearchProperties(Universe, _propCache);
         NavMeshEditor = new NavmeshEditor(RenderScene, _selection);
         MapAssetBrowser = new AssetBrowserScreen(AssetBrowserSource.MapEditor, Universe, RenderScene, _selection, EditorActionManager, this, Viewport);
+        
+        // Initialize viewport with universe for object info overlay
+        Viewport.SetUniverse(Universe);
 
         EditorActionManager.AddEventHandler(SceneTree);
     }
