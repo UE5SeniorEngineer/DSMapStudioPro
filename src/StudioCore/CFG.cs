@@ -73,6 +73,8 @@ public class CFG
     public bool Viewport_ShowObjectInfo_Lights = true;
     public bool Viewport_ShowObjectInfo_Chests = true;
     public bool Viewport_ShowObjectInfo_Drops = true;
+    public bool Viewport_ShowObjectInfo_NPCs = false;
+    public bool Viewport_ShowObjectInfo_Special = true;
     public float Viewport_ObjectInfo_MaxDistance = 50.0f;
     public float Viewport_ObjectInfo_PanelOpacity = 0.8f;
 

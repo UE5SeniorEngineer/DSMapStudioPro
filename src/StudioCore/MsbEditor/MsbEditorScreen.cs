@@ -965,6 +965,12 @@ public class MsbEditorScreen : EditorScreen, SceneTreeEventHandler
                 EditorActionManager.RedoAction();
             }
 
+            // Toggle object info overlay
+            if (InputTracker.GetKeyDown(KeyBindings.Current.Viewport_ToggleObjectInfo))
+            {
+                CFG.Current.Viewport_ShowObjectInfo = !CFG.Current.Viewport_ShowObjectInfo;
+            }
+
             // Viewport Grid
             /* if (InputTracker.GetKeyDown(KeyBindings.Current.Map_ViewportGrid_Lower))
             {
