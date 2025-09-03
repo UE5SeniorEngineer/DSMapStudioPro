@@ -1,10 +1,12 @@
 ﻿using Andre.Formats;
 using Octokit;
+using SoulsFormats;
 using StudioCore.Banks;
 using StudioCore.Banks.AliasBank;
 using StudioCore.Editors.AssetBrowser;
 using StudioCore.MsbEditor;
 using StudioCore.ParamEditor;
+using StudioCore.Platform;
 using StudioCore.TextEditor;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,87 @@ public static class AliasUtils
             ImGui.TextColored(new Vector4(0.0f, 1.0f, 0.0f, 1.0f), @$"[{aliasName}]");
             ImGui.PopTextWrapPos();
         }
+    }
+
+    public static void DisplayItemLotAlias(Entity e)
+    {
+        if (e.WrappedObject is MSB3.Event.Treasure eTreasure)
+        {
+            int ItemLot1 = eTreasure.ItemLot1;
+            int ItemLot2 = eTreasure.ItemLot2;
+            bool InChest = eTreasure.InChest;
+            
+            // 获取ItemLot1和ItemLot2对应的adjName
+            string adjName1 = GetItemLotAdjName(ItemLot1);
+            string adjName2 = GetItemLotAdjName(ItemLot2);
+            
+            // 构建显示名称
+            var parts = new List<string>();
+            if (!string.IsNullOrEmpty(adjName1))
+                parts.Add(adjName1);
+            if (!string.IsNullOrEmpty(adjName2))
+                parts.Add(adjName2);
+                
+            // 只有当有adjName时才显示
+            if (parts.Count > 0)
+            {
+                string aliasName = string.Join(" + ", parts);
+                
+                ImGui.SameLine();
+                ImGui.PushTextWrapPos(0);
+                if (InChest)
+                    ImGui.TextColored(new Vector4(1.0f, 0.5f, 0.2f, 1.0f), @$"[{aliasName} (InChest)]");
+                else
+                    ImGui.TextColored(new Vector4(1.0f, 0.5f, 0.5f, 1.0f), @$"[{aliasName}]");
+                ImGui.PopTextWrapPos();
+                
+                // 添加复制按钮
+                ImGui.SameLine();
+                if (ImGui.Button("Copy##ItemLotCopy"))
+                {
+                    PlatformUtils.Instance.SetClipboardText(aliasName);
+                }
+                
+                // 悬停提示
+                if (ImGui.IsItemHovered(0))
+                {
+                    ImGui.BeginTooltip();
+                    ImGui.TextUnformatted("复制名称到jian贴板");
+                    ImGui.EndTooltip();
+                }
+            }
+        }
+    }
+
+    private static string GetItemLotAdjName(int itemLotId)
+    {
+        if (itemLotId <= 0)
+            return "";
+            
+        try
+        {
+            var paramName = "ItemLotParam";
+            
+            if (Locator.AssetLocator.Type == GameType.EldenRing)
+            {
+                paramName = "ItemLotParam_map";
+            }
+
+            var param = ParamBank.PrimaryBank.GetParamFromName(paramName);
+            if (param != null)
+            {
+                Param.Row row = param[itemLotId];
+                if (row != null)
+                {
+                    return string.IsNullOrWhiteSpace(row.Name) ? "Unnamed Row" : row.Name;
+                }
+            }
+        }
+        catch 
+        { 
+        }
+
+        return "";
     }
 
     public static string GetTagListString(List<string> refTagList)

@@ -268,11 +268,30 @@ public class SceneTree : IActionEventHandler
                     {
                         _viewport.FrameBox(e.RenderSceneMesh.GetBounds());
                     }
+                    else
+                    {
+                        foreach (KeyValuePair<string, object[]> m in e.References)
+                        {
+                            foreach (var n in m.Value)
+                            {
+                                if (n is Entity eRef)
+                                {
+                                    if (eRef.WrappedObject is MSB3.Part.Object && eRef.RenderSceneMesh != null)
+                                    {
+                                        _viewport.FrameBox(eRef.RenderSceneMesh.GetBounds());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
             var alias = AliasUtils.GetEntityAliasName(e);
             AliasUtils.DisplayAlias(alias);
+            
+            AliasUtils.DisplayItemLotAlias(e);
         }
 
         if (ImGui.IsItemClicked())
