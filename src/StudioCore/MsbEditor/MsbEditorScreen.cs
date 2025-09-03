@@ -97,9 +97,6 @@ public class MsbEditorScreen : EditorScreen, SceneTreeEventHandler
         PropSearch = new SearchProperties(Universe, _propCache);
         NavMeshEditor = new NavmeshEditor(RenderScene, _selection);
         MapAssetBrowser = new AssetBrowserScreen(AssetBrowserSource.MapEditor, Universe, RenderScene, _selection, EditorActionManager, this, Viewport);
-        
-        // Initialize viewport with universe for object info overlay
-        Viewport.SetUniverse(Universe);
 
         EditorActionManager.AddEventHandler(SceneTree);
     }
@@ -963,12 +960,6 @@ public class MsbEditorScreen : EditorScreen, SceneTreeEventHandler
             if (EditorActionManager.CanRedo() && InputTracker.GetKeyDown(KeyBindings.Current.Core_Redo))
             {
                 EditorActionManager.RedoAction();
-            }
-
-            // Toggle object info overlay
-            if (InputTracker.GetKeyDown(KeyBindings.Current.Viewport_ToggleObjectInfo))
-            {
-                CFG.Current.Viewport_ShowObjectInfo = !CFG.Current.Viewport_ShowObjectInfo;
             }
 
             // Viewport Grid

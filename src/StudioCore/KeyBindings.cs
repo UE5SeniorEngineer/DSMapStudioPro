@@ -145,7 +145,6 @@ public class KeyBindings
         public KeyBind Viewport_ToggleGizmoOrigin = new(Key.Home);
         public KeyBind Viewport_ToggleGizmoSpace = new();
         public KeyBind Viewport_TranslateMode = new(Key.W);
-        public KeyBind Viewport_ToggleObjectInfo = new(Key.I, true);
 
 #pragma warning disable IDE0051
         // JsonExtensionData stores info in config file not present in class in order to retain settings between versions.

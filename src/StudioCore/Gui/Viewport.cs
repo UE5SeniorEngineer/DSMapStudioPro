@@ -36,8 +36,6 @@ public unsafe class Viewport : IViewport
     private readonly RenderScene _renderScene;
     private readonly Selection _selection;
     private readonly SceneRenderPipeline _viewPipeline;
-    
-    private ViewportObjectInfoOverlay _objectInfoOverlay;
 
     private readonly string _vpid = "";
 
@@ -181,9 +179,6 @@ public unsafe class Viewport : IViewport
         }
 
         ImGui.End();
-        
-        // Render object info overlay
-        RenderObjectInfoOverlay();
 
         if (ImGui.Begin($@"Profiling##{_vpid}"))
         {
@@ -201,11 +196,6 @@ public unsafe class Viewport : IViewport
         }
 
         ImGui.End();
-    }
-
-    public void SetUniverse(Universe universe)
-    {
-        _objectInfoOverlay = new ViewportObjectInfoOverlay(universe, _selection);
     }
 
     public void SceneParamsGui()
@@ -315,13 +305,6 @@ public unsafe class Viewport : IViewport
         }
 
         _gizmos.CameraPosition = WorldView.CameraTransform.Position;
-        
-        // Update object info overlay
-        if (_objectInfoOverlay != null)
-        {
-            _objectInfoOverlay.UpdateVisibleObjects(_frustum, WorldView, 
-                WorldView.CameraTransform.CameraViewMatrixLH, _projectionMat, Width, Height);
-        }
     }
 
     public void SetEnvMap(uint index)
@@ -391,10 +374,5 @@ public unsafe class Viewport : IViewport
         }
 
         return true;
-    }
-    
-    public void RenderObjectInfoOverlay()
-    {
-        _objectInfoOverlay?.RenderOverlay();
     }
 }

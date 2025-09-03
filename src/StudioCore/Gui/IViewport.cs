@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using StudioCore.MsbEditor;
 using Veldrid;
 using Veldrid.Sdl2;
 using Veldrid.Utilities;
@@ -26,5 +25,4 @@ public interface IViewport
     public void SetEnvMap(uint index);
     public void FrameBox(BoundingBox box);
     public void FramePosition(Vector3 pos, float dist);
-    public void SetUniverse(Universe universe);
 }
