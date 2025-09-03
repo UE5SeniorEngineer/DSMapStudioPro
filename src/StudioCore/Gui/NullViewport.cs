@@ -88,4 +88,9 @@ public unsafe class NullViewport : IViewport
     public void FramePosition(Vector3 pos, float dist)
     {
     }
+
+    public void SetUniverse(Universe universe)
+    {
+        // NullViewport doesn't need to do anything with Universe
+    }
 }
